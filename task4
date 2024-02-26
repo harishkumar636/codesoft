@@ -1,0 +1,42 @@
+import random
+
+def determine_winner(user_choice, computer_choice):
+    """
+    Function to determine the winner of the game.
+    Returns a string indicating the result.
+    """
+    if user_choice == computer_choice:
+        return "It's a tie!"  # If both choices are the same, it's a tie
+    elif (user_choice == 'rock' and computer_choice == 'scissors') or \
+         (user_choice == 'paper' and computer_choice == 'rock') or \
+         (user_choice == 'scissors' and computer_choice == 'paper'):
+        return "You win!"  # User wins if their choice beats the computer's choice
+    else:
+        return "Computer wins!"  # Computer wins otherwise
+
+def main():
+    """
+    Main function to control the flow of the game.
+    """
+    choices = ['rock', 'paper', 'scissors']  # List of valid choices
+    while True:
+        user_choice = input("Enter your choice (rock, paper, scissors): ").lower()
+        # Convert user input to lowercase and check if it's a valid choice
+        if user_choice not in choices:
+            print("Invalid choice. Please enter rock, paper, or scissors.")
+            continue
+
+        computer_choice = random.choice(choices)  # Randomly select computer's choice
+        print(f"Computer's choice: {computer_choice}")
+
+        result = determine_winner(user_choice, computer_choice)  # Determine the winner
+        print(result)  # Display the result
+
+        play_again = input("Do you want to play again? (yes/no): ").lower()
+        # Ask the user if they want to play again and check their response
+        if play_again != 'yes':
+            print("Thanks for playing!")
+            break  # Exit the loop if the user doesn't want to play again
+
+if __name__ == "__main__":
+    main()
