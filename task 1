@@ -1,0 +1,76 @@
+import json
+
+# Function to load tasks from a JSON file
+def load_tasks():
+    try:
+        with open('tasks.json', 'r') as file:
+            tasks = json.load(file)  # Load tasks from the file
+    except FileNotFoundError:
+        tasks = []  # If file not found, initialize an empty list for tasks
+    return tasks
+
+# Function to save tasks to a JSON file
+def save_tasks(tasks):
+    with open('tasks.json', 'w') as file:
+        json.dump(tasks, file)  # Save tasks to the file in JSON format
+
+# Function to add a new task to the list
+def add_task(tasks, task):
+    tasks.append({'task': task, 'done': False})  # Append a new task dictionary to the list
+
+# Function to view all tasks in the list
+def view_tasks(tasks):
+    for index, task in enumerate(tasks, start=1):
+        status = 'Done' if task['done'] else 'Not Done'
+        print(f"{index}. {task['task']} - {status}")  # Print each task along with its status
+
+# Function to mark a task as done
+def mark_task_done(tasks, task_index):
+    if 0 < task_index <= len(tasks):  # Check if task index is valid
+        tasks[task_index - 1]['done'] = True  # Mark the task as done
+    else:
+        print("Invalid task index")  # Print error message if index is invalid
+
+# Function to delete a task from the list
+def delete_task(tasks, task_index):
+    if 0 < task_index <= len(tasks):  # Check if task index is valid
+        del tasks[task_index - 1]  # Delete the task at the specified index
+    else:
+        print("Invalid task index")  # Print error message if index is invalid
+
+# Main function to control the flow of the program
+def main():
+    tasks = load_tasks()  # Load tasks from file when the program starts
+
+    while True:
+        print("\nTODO LIST MENU:")
+        print("1. View Tasks")
+        print("2. Add Task")
+        print("3. Mark Task as Done")
+        print("4. Delete Task")
+        print("5. Save and Exit")
+
+        choice = input("Enter your choice: ")  # Prompt the user for input
+
+        if choice == '1':
+            print("\nTASKS:")
+            view_tasks(tasks)  # View tasks when choice is 1
+        elif choice == '2':
+            task = input("Enter task: ")
+            add_task(tasks, task)  # Add task when choice is 2
+            print("Task added successfully!")
+        elif choice == '3':
+            task_index = int(input("Enter task index to mark as done: "))
+            mark_task_done(tasks, task_index)  # Mark task as done when choice is 3
+        elif choice == '4':
+            task_index = int(input("Enter task index to delete: "))
+            delete_task(tasks, task_index)  # Delete task when choice is 4
+        elif choice == '5':
+            save_tasks(tasks)  # Save tasks to file when choice is 5
+            print("Tasks saved successfully. Exiting...")
+            break  # Exit the loop and end the program
+        else:
+            print("Invalid choice. Please try again.")  # Print error message for invalid choice
+
+if __name__ == "__main__":
+    main()  # Call the main function when the script is executed
