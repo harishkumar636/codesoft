@@ -1,0 +1,52 @@
+# Define functions for basic arithmetic operations
+
+def add(x, y):
+    """Function to perform addition."""
+    return x + y
+
+def subtract(x, y):
+    """Function to perform subtraction."""
+    return x - y
+
+def multiply(x, y):
+    """Function to perform multiplication."""
+    return x * y
+
+def divide(x, y):
+    """
+    Function to perform division.
+    Handles division by zero error.
+    """
+    if y == 0:
+        return "Error! Division by zero."
+    return x / y
+
+def calculator():
+    """Main function to control the calculator."""
+    print("Select operation:")
+    print("1. Addition")
+    print("2. Subtraction")
+    print("3. Multiplication")
+    print("4. Division")
+
+    # Get user's choice for operation
+    choice = input("Enter choice (1/2/3/4): ")
+
+    # Get user input for two numbers
+    num1 = float(input("Enter first number: "))
+    num2 = float(input("Enter second number: "))
+
+    # Perform calculation based on user's choice
+    if choice == '1':
+        print("Result:", add(num1, num2))
+    elif choice == '2':
+        print("Result:", subtract(num1, num2))
+    elif choice == '3':
+        print("Result:", multiply(num1, num2))
+    elif choice == '4':
+        print("Result:", divide(num1, num2))
+    else:
+        print("Invalid input")
+
+if __name__ == "__main__":
+    calculator()  # Call the calculator function when the script is executed
